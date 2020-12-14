@@ -1,4 +1,4 @@
-package com.example.date121401_tmdb.bannerfragment
+package com.example.date121401_tmdb.banner
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
