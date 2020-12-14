@@ -21,6 +21,7 @@
     <!-- Banner -->
     <fragment
         android:id="@+id/container_banner_MainActivity"
+        android:name="com.example.date121401_tmdb.banner.BannerFragment"
         app:layout_constraintTop_toBottomOf="@+id/title_MainActivity"
         android:layout_width="match_parent"
         android:layout_height="300dp"/>
@@ -28,6 +29,7 @@
     <!-- List -->
     <fragment
         android:id="@+id/container_movieList_MainActivity"
+        android:name="com.example.date121401_tmdb.popularlist.PopularListFragment"
         app:layout_constraintTop_toBottomOf="@id/container_banner_MainActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
