@@ -24,7 +24,7 @@
         android:name="com.example.date121401_tmdb.banner.BannerFragment"
         app:layout_constraintTop_toBottomOf="@+id/title_MainActivity"
         android:layout_width="match_parent"
-        android:layout_height="300dp"/>
+        android:layout_height="200dp"/>
 
     <!-- List -->
     <fragment
