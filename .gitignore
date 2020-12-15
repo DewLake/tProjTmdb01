@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# for api key security
+gradle.properties
