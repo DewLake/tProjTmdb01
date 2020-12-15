@@ -7,11 +7,13 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
- * REST API Aaccess point
+ * REST API Access point.
+ * Retrofit turns your HTTP API into a Java interface.
+ * 各連線接口統一管理, 連線方式(GET, POST)、路徑、參數
  */
 interface ITMDbApiService {
 
-    @GET("movie/{movieId}")
+    @GET("movie/{movieId}")     // {} 為路徑參數, @Path 會將參數帶入至該位置
     fun fetchMovieDetail(@Path("movieId") movieId: String): Call<MovieDetailResponse>
 
 //    @GET("movie/{list}")
