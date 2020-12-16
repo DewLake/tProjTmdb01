@@ -24,7 +24,7 @@ object TmdbRetrofitManager {
         get() {
             val builder = Retrofit.Builder().apply {
                 baseUrl(baseUrl)
-//                addConverterFactory(MoshiConverterFactory.create())
+                addConverterFactory(MoshiConverterFactory.create())
                 client(okHttpClient)
             }
             return builder.build()

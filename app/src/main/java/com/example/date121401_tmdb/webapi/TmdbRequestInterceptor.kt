@@ -12,7 +12,8 @@ class TmdbRequestInterceptor() : Interceptor {
 
         // attach apk_key to query string. 幫 API Request 都加上 api_key
         val url = request.url.newBuilder()
-            .addQueryParameter("api_key", BuildConfig.TMDB_API_KEY)
+//            .addQueryParameter("api_key", BuildConfig.TMDB_API_KEY)
+            .addQueryParameter("api_key", "d80fde6b082a8ba2f5b25ca57711bbb7")
             .build()
 
         return chain.proceed(request)

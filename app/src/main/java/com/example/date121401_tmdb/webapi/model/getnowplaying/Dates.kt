@@ -5,6 +5,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class Dates(
-    @field:Json(name = "") val maximum: String,
-    @field:Json(name = "") val minimum: String
+    @field:Json(name = "maximum") val maximum: String,
+    @field:Json(name = "minimum") val minimum: String
 )

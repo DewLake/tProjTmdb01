@@ -11,6 +11,7 @@ import com.example.date121401_tmdb.R
 import com.example.date121401_tmdb.webapi.ITmdbApiService
 import com.example.date121401_tmdb.webapi.TmdbRetrofitManager
 import com.example.date121401_tmdb.webapi.model.MovieDetailResponse
+import com.example.date121401_tmdb.webapi.model.getnowplaying.GetNowPlayingResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,11 +49,12 @@ class PopularListFragment : Fragment() {
     }
 
     /////////////////////////////////////////////////////// end initialize.
-    /////////////////////////////////////////////////////// general function
+    /////////////////////////////////////////////////////// api function
+    private val fnDelegate: ()->Unit = { GetNowPlaying(1) }
+
     /**
      * 送出請求, 查詢 API
      */
-    private val fnDelegate: ()->Unit = { fetchMovieDetail() }
     private fun fetchMovieDetail():Unit {
         val apiService = TmdbRetrofitManager.service
         apiService.fetchMovieDetail("550").enqueue(object: Callback<MovieDetailResponse>{
@@ -70,6 +72,26 @@ class PopularListFragment : Fragment() {
         }) // end enqueue
 
     } // end fetchMovieDetail().
-    /////////////////////////////////////////////////////// general function end.
+
+    /**
+     * Get Now Playing
+     */
+    private fun GetNowPlaying(page:Int = 1) {
+        val apiService = TmdbRetrofitManager.service
+        apiService.getNowPlaying(page).enqueue(object: Callback<GetNowPlayingResponse>{
+            override fun onResponse(
+                call: Call<GetNowPlayingResponse>,
+                response: Response<GetNowPlayingResponse>
+            ) {
+                Log.d("$TAG-GetNowPlaying","onResponse")
+            }
+
+            override fun onFailure(call: Call<GetNowPlayingResponse>, t: Throwable) {
+                Log.d("$TAG-GetNowPlaying","onFailure")
+            }
+
+        })
+    } // end GetNowPlaying().
+    /////////////////////////////////////////////////////// api function end.
     ///////////////////////////////////////////////////////
 } // end PopularListFragment.
