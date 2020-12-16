@@ -6,7 +6,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object TmdbRetrofitManager {
     // base url
-    private const val baseUrl = "https://api.github.com/"
+    private const val baseUrl = "https://api.themoviedb.org/3/"
 
     // okHttpClient:
     // Retrofit 底層也是用 OkHttp, 在此可設定自己的 okHttpClient
@@ -24,12 +24,12 @@ object TmdbRetrofitManager {
         get() {
             val builder = Retrofit.Builder().apply {
                 baseUrl(baseUrl)
-                addConverterFactory(MoshiConverterFactory.create())
+//                addConverterFactory(MoshiConverterFactory.create())
                 client(okHttpClient)
             }
             return builder.build()
         }
 
     // api service
-    val SERVICE: ITmdbApiService = retrofit.create(ITmdbApiService::class.java)
+    val service: ITmdbApiService = retrofit.create(ITmdbApiService::class.java)
 } // end object RetrofitManager.

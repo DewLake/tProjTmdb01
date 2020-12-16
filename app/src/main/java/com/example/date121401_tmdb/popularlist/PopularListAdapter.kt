@@ -10,13 +10,13 @@ import com.example.date121401_tmdb.R
 
 class PopularListAdapter(
         private val dataList: List<PopularListItemModel>,
-        private val itemClickedPerformer: IItemClickedPerformer
+        private val fnDelegate: ()->Unit
     ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemView: View = LayoutInflater.from(parent.context)
                 .inflate(R.layout.popular_list_item, parent, false)
-        val holder = ItemViewHolder(itemView, itemClickedPerformer)
+        val holder = ItemViewHolder(itemView, fnDelegate)
         return holder
     }
 
@@ -39,7 +39,7 @@ class PopularListAdapter(
     ///////////////////////////////////////////////////////////////// ViewHolder.
     class ItemViewHolder(
         itemView: View,
-        itemClickedPerformer: IItemClickedPerformer
+        fnDelegate: ()->Unit
     ) : RecyclerView.ViewHolder(itemView){
         //
         private var midxAdapter: Int = -1        // index of adapter position
@@ -56,7 +56,7 @@ class PopularListAdapter(
         ////////// Click Event Handler
         private var clickListener = View.OnClickListener{
             Log.i("ItemViewHolder", "idx: $midxAdapter clicked.")
-            itemClickedPerformer.perform()
+            fnDelegate()
         }.also { itemView.setOnClickListener(it) }
         ////////// Click Event Handler end
 
