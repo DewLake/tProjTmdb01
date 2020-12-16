@@ -2,6 +2,7 @@ package com.example.date121401_tmdb.webapi
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 object TmdbRetrofitManager {
     // base url
@@ -18,7 +19,16 @@ object TmdbRetrofitManager {
         }
 
     // retrofit
-    val retrofit: Retrofit = Retrofit.Builder().baseUrl(baseUrl).build()
+//    val retrofit: Retrofit = Retrofit.Builder().baseUrl(baseUrl).build()
+    val retrofit: Retrofit
+        get() {
+            val builder = Retrofit.Builder().apply {
+                baseUrl(baseUrl)
+                addConverterFactory(MoshiConverterFactory.create())
+                client(okHttpClient)
+            }
+            return builder.build()
+        }
 
     // api service
     val SERVICE: ITmdbApiService = retrofit.create(ITmdbApiService::class.java)
