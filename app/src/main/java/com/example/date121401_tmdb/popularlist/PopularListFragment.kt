@@ -84,6 +84,8 @@ class PopularListFragment : Fragment() {
                 response: Response<GetNowPlayingResponse>
             ) {
                 Log.d("$TAG-GetNowPlaying","onResponse")
+//                println("......" + response.body())
+
             }
 
             override fun onFailure(call: Call<GetNowPlayingResponse>, t: Throwable) {
