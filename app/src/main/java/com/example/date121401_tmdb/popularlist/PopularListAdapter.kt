@@ -7,14 +7,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.date121401_tmdb.R
-import java.util.zip.Inflater
 
-class PopularListAdapter(private val dataList: List<PopularListItemModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PopularListAdapter(
+        private val dataList: List<PopularListItemModel>,
+        private val itemClickedPerformer: IItemClickedPerformer
+    ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemView: View = LayoutInflater.from(parent.context)
                 .inflate(R.layout.popular_list_item, parent, false)
-        val holder = ItemViewHolder(itemView)
+        val holder = ItemViewHolder(itemView, itemClickedPerformer)
         return holder
     }
 
@@ -29,8 +31,16 @@ class PopularListAdapter(private val dataList: List<PopularListItemModel>) : Rec
     }
 
     /////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////// interface, IClickItemPerformer
+    interface IItemClickedPerformer {
+        fun perform(): Unit
+    }
+    ///////////////////////////////////////////////////////////////// interface, IClickItemPerformer end
     ///////////////////////////////////////////////////////////////// ViewHolder.
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class ItemViewHolder(
+        itemView: View,
+        itemClickedPerformer: IItemClickedPerformer
+    ) : RecyclerView.ViewHolder(itemView){
         //
         private var midxAdapter: Int = -1        // index of adapter position
         private var txvId: TextView = itemView.findViewById(R.id.txvId_PopularListItem)
@@ -46,6 +56,7 @@ class PopularListAdapter(private val dataList: List<PopularListItemModel>) : Rec
         ////////// Click Event Handler
         private var clickListener = View.OnClickListener{
             Log.i("ItemViewHolder", "idx: $midxAdapter clicked.")
+            itemClickedPerformer.perform()
         }.also { itemView.setOnClickListener(it) }
         ////////// Click Event Handler end
 

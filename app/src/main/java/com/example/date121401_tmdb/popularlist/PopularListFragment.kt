@@ -31,6 +31,10 @@ class PopularListFragment : Fragment() {
         return view
     } // end onCreateView().
 
+    ////////// IClickItemPerformer
+    private val itemClickedPerformer = PopularListAdapter.IItemClickedPerformer {
+        print("a")
+    }
 
     /**
      * Popular List Recycler view initialize.
