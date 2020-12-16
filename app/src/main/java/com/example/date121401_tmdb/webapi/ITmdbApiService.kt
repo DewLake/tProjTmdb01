@@ -19,11 +19,7 @@ interface ITmdbApiService {
     fun fetchMovieDetail(@Path("movieId") movieId: String): Call<MovieDetailResponse>
 
     @GET("movie/now_playing")
-//    fun getNowPlaying(@Query("page") page:Int): Call<GetNowPlayingResponse>
-    fun getNowPlaying(
-        @Query("page") page:Int,
-        @Query("api_key") apiKey:String = "d80fde6b082a8ba2f5b25ca57711bbb7"
-    ): Call<GetNowPlayingResponse>
+    fun getNowPlaying(@Query("page") page:Int): Call<GetNowPlayingResponse>
 
 
 //    @GET("movie/{list}")
