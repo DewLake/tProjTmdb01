@@ -8,7 +8,7 @@ import okhttp3.Response
 
 class TmdbRequestInterceptor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request()
+        var request = chain.request()
 
         // attach apk_key to query string. 幫 API Request 都加上 api_key
         val url = request.url.newBuilder()
@@ -16,6 +16,7 @@ class TmdbRequestInterceptor() : Interceptor {
             .addQueryParameter("api_key", "d80fde6b082a8ba2f5b25ca57711bbb7")
             .build()
 
+        request = request.newBuilder().url(url).build()
         return chain.proceed(request)
     } // end intercept().
 } // end class RequestInterceptor.
