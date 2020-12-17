@@ -1,4 +1,4 @@
-package com.example.date121401_tmdb.banner
+package com.example.date121401_tmdb.nowplayinglist
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,16 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.date121401_tmdb.R
-import com.example.date121401_tmdb.popularlist.PopularListAdapter
-import com.example.date121401_tmdb.popularlist.PopularListItemModel
-import com.example.date121401_tmdb.popularlist.PuplarListDataSource1
 
 /**
  * Banner
  */
-class BannerFragment : Fragment() {
+class nowPlayingListFragment : Fragment() {
     // TAG
-    val TAG = "[TAG]-${BannerFragment::class.simpleName}"
+    val TAG = "[TAG]-${nowPlayingListFragment::class.simpleName}"
     //
     private lateinit var rcvBanner: RecyclerView
 
@@ -38,7 +35,7 @@ class BannerFragment : Fragment() {
      */
     private fun initRecyclerView(view: View) {
         this.rcvBanner = view.findViewById<RecyclerView>(R.id.rcvBanner).apply {
-            adapter = BannerAdapter(BannerDataSource1)
+            adapter = nowPlayingListAdapter(BannerDataSource1)
         }
     } // end initRecyclerView()
     /////////////////////////////////////////////////////// end initialize.

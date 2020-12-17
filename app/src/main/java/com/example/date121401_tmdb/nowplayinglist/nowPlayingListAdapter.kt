@@ -1,14 +1,13 @@
-package com.example.date121401_tmdb.banner
+package com.example.date121401_tmdb.nowplayinglist
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.date121401_tmdb.R
 
-class BannerAdapter(private val dataList: List<BannerModel>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class nowPlayingListAdapter(private val dataList: List<BannerModel>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.banner_item, parent, false)

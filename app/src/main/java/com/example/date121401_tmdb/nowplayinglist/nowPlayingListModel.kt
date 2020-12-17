@@ -1,4 +1,4 @@
-package com.example.date121401_tmdb.banner
+package com.example.date121401_tmdb.nowplayinglist
 
 data class BannerModel(
     val id: Int,
