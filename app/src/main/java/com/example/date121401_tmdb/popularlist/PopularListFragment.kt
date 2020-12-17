@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.date121401_tmdb.R
+import com.example.date121401_tmdb.webapi.TmdbRepository
 import com.example.date121401_tmdb.webapi.TmdbRetrofitManager
 import com.example.date121401_tmdb.webapi.model.moviedetail.MovieDetailResponse
 import com.example.date121401_tmdb.webapi.model.nowplaying.GetNowPlayingResponse
+import com.example.date121401_tmdb.webapi.model.nowplaying.GetNowPlayingResponseJsonAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -75,23 +77,12 @@ class PopularListFragment : Fragment() {
     /**
      * Get Now Playing
      */
-    private fun GetNowPlaying(page:Int = 1) {
-        val apiService = TmdbRetrofitManager.service
-        apiService.getNowPlaying(page).enqueue(object: Callback<GetNowPlayingResponse>{
-            override fun onResponse(
-                call: Call<GetNowPlayingResponse>,
-                response: Response<GetNowPlayingResponse>
-            ) {
-                Log.d("$TAG-GetNowPlaying","onResponse")
-//                println("......" + response.body())
+    fun GetNowPlaying(page:Int = 1) {
+        val onDataReadyCallback: (GetNowPlayingResponse) -> Unit = { response ->
+            println(response)
+        }
 
-            }
-
-            override fun onFailure(call: Call<GetNowPlayingResponse>, t: Throwable) {
-                Log.d("$TAG-GetNowPlaying","onFailure")
-            }
-
-        })
+        TmdbRepository.GetNowPlaying(page, onDataReadyCallback)
     } // end GetNowPlaying().
     /////////////////////////////////////////////////////// api function end.
     ///////////////////////////////////////////////////////
