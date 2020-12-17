@@ -44,8 +44,11 @@ class nowPlayingListAdapter(private var dataList: List<NowPlayingListModel>): Re
 
         fun onBind(data: NowPlayingListModel, position: Int) {
             mPosition = position
-            txvSrc.text = data.imgSrc
-            val uri = ContextCompat.getDrawable(itemView.context, R.drawable.ic_launcher_background)
+//            txvSrc.text = data.imgSrc
+//            val uri = ContextCompat.getDrawable(itemView.context, R.drawable.ic_launcher_background)
+//            Glide.with(itemView).load(uri).into(imvImage)
+//            val uri = "https://image.tmdb.org/t/p/w300/eShw0LB5CkoEfYtpUcXPD85oz5Q.jpg"
+            val uri = "https://image.tmdb.org/t/p/w300" + data.imgSrc
             Glide.with(itemView).load(uri).into(imvImage)
         }
     } // end class ItemViewHolder.
