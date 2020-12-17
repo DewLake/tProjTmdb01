@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.date121401_tmdb.R
+import com.example.date121401_tmdb.webapi.TmdbRepository
+import com.example.date121401_tmdb.webapi.model.nowplaying.GetNowPlayingResponse
 
 /**
  * Banner
@@ -22,7 +24,7 @@ class nowPlayingListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_banner, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_now_playing_list, container, false)
 
         // init recyclerview
         this.initRecyclerView(view)
@@ -39,5 +41,17 @@ class nowPlayingListFragment : Fragment() {
         }
     } // end initRecyclerView()
     /////////////////////////////////////////////////////// end initialize.
+    /////////////////////////////////////////////////////// api function:
+    /**
+     * Get Now Playing
+     */
+    fun GetNowPlaying(page:Int = 1) {
+        val onDataReadyCallback: (GetNowPlayingResponse) -> Unit = { response ->
+            println(response)
+        }
+
+        TmdbRepository.GetNowPlaying(page, onDataReadyCallback)
+    } // end GetNowPlaying().
+    /////////////////////////////////////////////////////// api function end.
 
 } // end class BannerFragment.

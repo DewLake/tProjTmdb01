@@ -51,12 +51,12 @@ class PopularListFragment : Fragment() {
 
     /////////////////////////////////////////////////////// end initialize.
     /////////////////////////////////////////////////////// api function
-    private val fnDelegate: ()->Unit = { GetNowPlaying(1) }
+    private val fnDelegate: ()->Unit = { GetMovieDetail() }
 
     /**
      * 送出請求, 查詢 API
      */
-    private fun fetchMovieDetail():Unit {
+    private fun GetMovieDetail():Unit {
         val apiService = TmdbRetrofitManager.service
         apiService.fetchMovieDetail("550").enqueue(object: Callback<MovieDetailResponse>{
             override fun onResponse(
@@ -73,17 +73,6 @@ class PopularListFragment : Fragment() {
         }) // end enqueue
 
     } // end fetchMovieDetail().
-
-    /**
-     * Get Now Playing
-     */
-    fun GetNowPlaying(page:Int = 1) {
-        val onDataReadyCallback: (GetNowPlayingResponse) -> Unit = { response ->
-            println(response)
-        }
-
-        TmdbRepository.GetNowPlaying(page, onDataReadyCallback)
-    } // end GetNowPlaying().
     /////////////////////////////////////////////////////// api function end.
     ///////////////////////////////////////////////////////
 } // end PopularListFragment.

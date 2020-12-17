@@ -10,7 +10,7 @@ import com.example.date121401_tmdb.R
 class nowPlayingListAdapter(private val dataList: List<BannerModel>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.banner_item, parent, false)
+            .inflate(R.layout.now_playing_list_item, parent, false)
         val holder = ItemViewHolder(itemView)
         return holder
     }
