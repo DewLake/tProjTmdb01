@@ -1,4 +1,4 @@
-package com.example.date121401_tmdb.webapi.model
+package com.example.date121401_tmdb.webapi.model.moviedetail
 
 data class ProductionCompany(
     val id: Int,

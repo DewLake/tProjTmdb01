@@ -1,7 +1,7 @@
 package com.example.date121401_tmdb.webapi
 
-import com.example.date121401_tmdb.webapi.model.MovieDetailResponse
-import com.example.date121401_tmdb.webapi.model.getnowplaying.GetNowPlayingResponse
+import com.example.date121401_tmdb.webapi.model.moviedetail.MovieDetailResponse
+import com.example.date121401_tmdb.webapi.model.nowplaying.GetNowPlayingResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

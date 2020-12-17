@@ -1,4 +1,4 @@
-package com.example.date121401_tmdb.webapi.model.getnowplaying
+package com.example.date121401_tmdb.webapi.model.nowplaying
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
