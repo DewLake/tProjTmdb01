@@ -10,7 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.date121401_tmdb.R
 
-class nowPlayingListAdapter(private val dataList: List<BannerModel>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class nowPlayingListAdapter(private var dataList: List<NowPlayingListModel>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    /** 更新資料, !!注意: 暫寫, 應改為訂閱可觀察, 避免手動設置出錯 */
+    fun updateDataBy(newDataList: List<NowPlayingListModel>) {
+        this.dataList = newDataList
+        this.notifyDataSetChanged()     // 要(手動)呼叫嗎?
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.now_playing_list_item, parent, false)
@@ -35,7 +42,7 @@ class nowPlayingListAdapter(private val dataList: List<BannerModel>): RecyclerVi
         private var txvSrc = itemView.findViewById<TextView>(R.id.txvSrc_NowPlayingListItem)
         private var imvImage = itemView.findViewById<ImageView>(R.id.imvImage_NowPlayingListItem)
 
-        fun onBind(data: BannerModel, position: Int) {
+        fun onBind(data: NowPlayingListModel, position: Int) {
             mPosition = position
             txvSrc.text = data.imgSrc
             val uri = ContextCompat.getDrawable(itemView.context, R.drawable.ic_launcher_background)

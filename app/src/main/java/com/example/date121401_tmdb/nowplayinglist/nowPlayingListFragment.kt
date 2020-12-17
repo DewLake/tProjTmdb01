@@ -17,7 +17,7 @@ class nowPlayingListFragment : Fragment() {
     // TAG
     val TAG = "[TAG]-${nowPlayingListFragment::class.simpleName}"
     //
-    private lateinit var rcvBanner: RecyclerView
+    private lateinit var rcvNowPlaying: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +29,9 @@ class nowPlayingListFragment : Fragment() {
         // init recyclerview
         this.initRecyclerView(view)
 
+        // update data
+        this.GetNowPlaying(1)
+
         return view
     } // end onCreateView().
 
@@ -36,8 +39,8 @@ class nowPlayingListFragment : Fragment() {
      * Banner Recycler view initialize.
      */
     private fun initRecyclerView(view: View) {
-        this.rcvBanner = view.findViewById<RecyclerView>(R.id.rcvBanner).apply {
-            adapter = nowPlayingListAdapter(BannerDataSource1)
+        this.rcvNowPlaying = view.findViewById<RecyclerView>(R.id.rcvBanner).apply {
+            adapter = nowPlayingListAdapter(NowPlayingListDataSource1)
         }
     } // end initRecyclerView()
     /////////////////////////////////////////////////////// end initialize.
@@ -47,8 +50,25 @@ class nowPlayingListFragment : Fragment() {
      */
     fun GetNowPlaying(page:Int = 1) {
         val onDataReadyCallback: (GetNowPlayingResponse) -> Unit = { response ->
-            println(response)
-        }
+            /* Response Schema:
+            {
+                dates: Dates,
+                page: Int,
+                results: List<Result>,
+                total_pages: Int,
+                total_results: Int
+            }
+             */
+            val result = response.results       // !! 會有非同步的問題嗎?
+
+            val newDataList = mutableListOf<NowPlayingListModel>()
+            for (item in result) {
+                newDataList.add(NowPlayingListModel(item.id, item.backdrop_path))
+            }
+
+            val adapter = this.rcvNowPlaying.adapter as nowPlayingListAdapter
+            adapter.updateDataBy(newDataList.toList())
+        } // end val onDataReadyCallback.
 
         TmdbRepository.GetNowPlaying(page, onDataReadyCallback)
     } // end GetNowPlaying().
