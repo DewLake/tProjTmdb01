@@ -61,7 +61,7 @@ class PopularListAdapter(
             txvTitle.text = data.title
             txvDateMin.text = data.dateMin
             txvRunTime.text = data.runTime
-            txvRate.text = data.runTime
+            txvRate.text = data.rate
         }
 
         ////////// Click Event Handler
