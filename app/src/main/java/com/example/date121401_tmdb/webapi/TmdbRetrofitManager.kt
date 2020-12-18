@@ -37,5 +37,5 @@ object TmdbRetrofitManager {
         }
 
     // api service
-    val service: ITmdbApiService = retrofit.create(ITmdbApiService::class.java)
+    val apiService: ITmdbApiService = retrofit.create(ITmdbApiService::class.java)
 } // end object RetrofitManager.

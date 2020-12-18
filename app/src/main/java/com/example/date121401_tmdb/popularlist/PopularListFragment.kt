@@ -8,11 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.date121401_tmdb.R
-import com.example.date121401_tmdb.webapi.TmdbRepository
 import com.example.date121401_tmdb.webapi.TmdbRetrofitManager
 import com.example.date121401_tmdb.webapi.model.moviedetail.MovieDetailResponse
-import com.example.date121401_tmdb.webapi.model.nowplaying.GetNowPlayingResponse
-import com.example.date121401_tmdb.webapi.model.nowplaying.GetNowPlayingResponseJsonAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -57,7 +54,7 @@ class PopularListFragment : Fragment() {
      * 送出請求, 查詢 API
      */
     private fun GetMovieDetail():Unit {
-        val apiService = TmdbRetrofitManager.service
+        val apiService = TmdbRetrofitManager.apiService
         apiService.fetchMovieDetail("550").enqueue(object: Callback<MovieDetailResponse>{
             override fun onResponse(
                     call: Call<MovieDetailResponse>,

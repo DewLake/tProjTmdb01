@@ -2,6 +2,7 @@ package com.example.date121401_tmdb.webapi
 
 import android.util.Log
 import com.example.date121401_tmdb.webapi.model.nowplaying.GetNowPlayingResponse
+import com.example.date121401_tmdb.webapi.model.popular.GetPopularResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,7 +33,7 @@ object TmdbRepository {
             page:Int = 1,
             onDataReadyCallback:(responseBody: GetNowPlayingResponse)->Unit
     ) {
-        val apiService = TmdbRetrofitManager.service
+        val apiService = TmdbRetrofitManager.apiService
         apiService.getNowPlaying(page).enqueue(object: Callback<GetNowPlayingResponse> {
 
             override fun onResponse(
@@ -51,4 +52,28 @@ object TmdbRepository {
 
         })
     } // end GetNowPlaying().
+
+
+    /**
+     * Get Popular
+     */
+    fun GetPopular(
+            page:Int = 1,
+            onDataReadyCallback:(responseBody: GetPopularResponse)->Unit
+    ) {
+        val api = TmdbRetrofitManager.apiService
+        api.getPopular(page).enqueue(object : Callback<GetPopularResponse>{
+            override fun onResponse(call: Call<GetPopularResponse>, response: Response<GetPopularResponse>) {
+                Log.d("$TAG-GetPopular","onResponse")
+                if(response.body() != null) {
+                    onDataReadyCallback(response.body() as GetPopularResponse)
+                }
+            }
+
+            override fun onFailure(call: Call<GetPopularResponse>, t: Throwable) {
+                Log.d("$TAG-GetPopular","onFailure")
+            }
+
+        })
+    } // end GetPopular().
 } // end class TmdbRepository.

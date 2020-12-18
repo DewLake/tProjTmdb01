@@ -2,6 +2,7 @@ package com.example.date121401_tmdb.webapi
 
 import com.example.date121401_tmdb.webapi.model.moviedetail.MovieDetailResponse
 import com.example.date121401_tmdb.webapi.model.nowplaying.GetNowPlayingResponse
+import com.example.date121401_tmdb.webapi.model.popular.GetPopularResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -20,6 +21,9 @@ interface ITmdbApiService {
 
     @GET("movie/now_playing")
     fun getNowPlaying(@Query("page") page:Int): Call<GetNowPlayingResponse>
+
+    @GET("movie/popular")
+    fun getPopular(@Query("page") page:Int): Call<GetPopularResponse>
 
 
 //    @GET("movie/{list}")
