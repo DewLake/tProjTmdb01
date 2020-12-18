@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/txvRate_PopularListItem"
+            android:id="@+id/txvPopularitye_PopularListItem"
             android:text="Rate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/imvImage__PopularListItem"

@@ -50,7 +50,7 @@ class PopularListAdapter(
         private val txvTitle: TextView = itemView.findViewById(R.id.txvTitle__PopularListItem)
         private val txvDateMin: TextView = itemView.findViewById(R.id.txvDateMin_PopularListItem)
         private val txvRunTime: TextView = itemView.findViewById(R.id.txvRunTime_PopularListItem)
-        private val txvRate: TextView = itemView.findViewById(R.id.txvRate_PopularListItem)
+        private val txvRate: TextView = itemView.findViewById(R.id.txvPopularitye_PopularListItem)
 
 
         fun onBind(data: PopularListItemModel, position: Int) {
@@ -61,7 +61,7 @@ class PopularListAdapter(
             txvTitle.text = data.title
             txvDateMin.text = data.dateMin
             txvRunTime.text = data.runTime
-            txvRate.text = data.rate
+            txvRate.text = data.popularity.toString()
         }
 
         ////////// Click Event Handler
