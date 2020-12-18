@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.date121401_tmdb.R
+import com.example.date121401_tmdb.webapi.TmdbRepository
 
 class nowPlayingListAdapter(private var dataList: List<NowPlayingListModel>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -44,13 +45,16 @@ class nowPlayingListAdapter(private var dataList: List<NowPlayingListModel>): Re
 
         fun onBind(data: NowPlayingListModel, position: Int) {
             mPosition = position
-//            txvSrc.text = data.imgSrc
-//            val uri = ContextCompat.getDrawable(itemView.context, R.drawable.ic_launcher_background)
-//            Glide.with(itemView).load(uri).into(imvImage)
-//            val uri = "https://image.tmdb.org/t/p/w300/eShw0LB5CkoEfYtpUcXPD85oz5Q.jpg"
-            val uri = "https://image.tmdb.org/t/p/w300" + data.imgSrc
+            // txvSrc.text = data.imgSrc
+
+            // Image:
+            // val uri = ContextCompat.getDrawable(itemView.context, R.drawable.ic_launcher_background)
+            // Glide.with(itemView).load(uri).into(imvImage)
+            val uri = TmdbRepository.GetImageUrl("w200", data.imgSrc)
             Glide.with(itemView).load(uri).into(imvImage)
-        }
+        } // end onBind().
+
+
     } // end class ItemViewHolder.
     ///////////////////////////////////////////////////////////////// ViewHolder end.
 } // end class BannerAdapter.

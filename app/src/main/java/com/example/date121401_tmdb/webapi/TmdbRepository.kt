@@ -15,6 +15,17 @@ object TmdbRepository {
     val TAG="[TAG]-${TmdbRepository::class.simpleName}"
 
     /**
+     * 取得 TMDb 圖片網址
+     * rfs: https://developers.themoviedb.org/3/getting-started/images
+     */
+    fun GetImageUrl(file_size: String, file_path: String): String {
+        val basUrl = "https://image.tmdb.org/t/p/"
+        // val url = "https://image.tmdb.org/t/p/w300/eShw0LB5CkoEfYtpUcXPD85oz5Q.jpg"
+        val url = "$basUrl$file_size/$file_path"
+        return url
+    }
+
+    /**
      * Get Now Playing
      */
     fun GetNowPlaying(
