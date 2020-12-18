@@ -4,9 +4,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.date121401_tmdb.R
+import com.example.date121401_tmdb.webapi.TmdbRepository
 
 class PopularListAdapter(
         private val dataList: List<PopularListItemModel>,
@@ -43,14 +46,22 @@ class PopularListAdapter(
     ) : RecyclerView.ViewHolder(itemView){
         //
         private var midxAdapter: Int = -1        // index of adapter position
-        private var txvId: TextView = itemView.findViewById(R.id.txvId_PopularListItem)
-        private var txvTitle: TextView = itemView.findViewById(R.id.txvTitle_PopularListItem)
+        private val imvImage: ImageView = itemView.findViewById(R.id.imvImage__PopularListItem)
+        private val txvTitle: TextView = itemView.findViewById(R.id.txvTitle__PopularListItem)
+        private val txvDateMin: TextView = itemView.findViewById(R.id.txvDateMin_PopularListItem)
+        private val txvRunTime: TextView = itemView.findViewById(R.id.txvRunTime_PopularListItem)
+        private val txvRate: TextView = itemView.findViewById(R.id.txvRate_PopularListItem)
 
 
         fun onBind(data: PopularListItemModel, position: Int) {
             midxAdapter = position
-            txvId.text = data.id.toString()
+
+            val uri = TmdbRepository.GetImageUrl(data.imgSrc)
+            Glide.with(itemView).load(uri).into(imvImage)
             txvTitle.text = data.title
+            txvDateMin.text = data.dateMin
+            txvRunTime.text = data.runTime
+            txvRate.text = data.runTime
         }
 
         ////////// Click Event Handler

@@ -50,7 +50,7 @@ class nowPlayingListAdapter(private var dataList: List<NowPlayingListModel>): Re
             // Image:
             // val uri = ContextCompat.getDrawable(itemView.context, R.drawable.ic_launcher_background)
             // Glide.with(itemView).load(uri).into(imvImage)
-            val uri = TmdbRepository.GetImageUrl("w200", data.imgSrc)
+            val uri = TmdbRepository.GetImageUrl(data.imgSrc)
             Glide.with(itemView).load(uri).into(imvImage)
         } // end onBind().
 

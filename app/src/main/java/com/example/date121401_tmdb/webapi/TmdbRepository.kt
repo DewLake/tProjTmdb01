@@ -18,7 +18,7 @@ object TmdbRepository {
      * 取得 TMDb 圖片網址
      * rfs: https://developers.themoviedb.org/3/getting-started/images
      */
-    fun GetImageUrl(file_size: String, file_path: String): String {
+    fun GetImageUrl(file_path: String, file_size:String = "w200"): String {
         val basUrl = "https://image.tmdb.org/t/p/"
         // val url = "https://image.tmdb.org/t/p/w300/eShw0LB5CkoEfYtpUcXPD85oz5Q.jpg"
         val url = "$basUrl$file_size/$file_path"
