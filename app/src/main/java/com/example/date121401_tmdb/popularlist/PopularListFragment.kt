@@ -35,6 +35,9 @@ class PopularListFragment : Fragment() {
         // init recyclerview
         this.initPopularListRecyclerView(view)
 
+        // update data
+        this.GetPopular(1)
+
         return view
     } // end onCreateView().
 
@@ -44,42 +47,37 @@ class PopularListFragment : Fragment() {
     fun initPopularListRecyclerView(view: View) {
         this.rcvPopularList = view.findViewById<RecyclerView>(R.id.rcvPopularList).apply {
             adapter = PopularListAdapter(PuplarListDataSource1, fnDelegate)
+//            val populist = GetPopular(1)
+//            adapter = PopularListAdapter(populist, fnDelegate)
         }
     }
 
     /////////////////////////////////////////////////////// end initialize.
     /////////////////////////////////////////////////////// api function
     //
-    private val fnDelegate: ()->Unit = { GetMovieDetail() }
+    private val fnDelegate: ()->Unit = { fnDelegateCalled() }
     //
 
     /////////////////////////////////////////////////////// api function:
     /**
      * Get Popular
      */
-    fun GetPopular(page:Int = 1) {
+    fun GetPopular(page:Int = 1): List<PopularListItemModel> {
         val onDataReadyCallback: (GetPopularResponse) -> Unit = {
-            /* Response Schema:
-                data class GetPopularResponse(
-                    val page: Int,
-                    val results: List<Result>,
-                    val total_pages: Int,
-                    val total_results: Int
-                )
-             */
-            val result = it.results             // !! 會有非同步的問題嗎?
-
-            val newDataList = mutableListOf<PopularListItemModel>()
-            for (item in result) {
-                // 用 id 再請求 Movie Detail
-
-                newDataList.add(PopularListItemModel())
-            }
+            val newDataList = PopularListModel.from(it)
 
             val adapter = this.rcvPopularList.adapter as PopularListAdapter
             adapter.updateDataBy(newDataList.toList())
         } // end val onDataReadyCallback.
     } // end GetPopular().
+
+
+    /**
+     *
+     */
+    fun fnDelegateCalled() {
+        print("fnDelegateCalled")
+    }
     /////////////////////////////////////////////////////// api function end.
     ///////////////////////////////////////////////////////
 } // end PopularListFragment.
