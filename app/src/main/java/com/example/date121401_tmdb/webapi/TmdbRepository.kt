@@ -1,6 +1,7 @@
 package com.example.date121401_tmdb.webapi
 
 import android.util.Log
+import com.example.date121401_tmdb.webapi.model.moviedetail.MovieDetailResponse
 import com.example.date121401_tmdb.webapi.model.nowplaying.GetNowPlayingResponse
 import com.example.date121401_tmdb.webapi.model.popular.GetPopularResponse
 import retrofit2.Call
@@ -80,8 +81,24 @@ object TmdbRepository {
     /**
      * Get Movie Detail
      */
-    fun GetMovieDetail(onDataReadyCallback: ()) {
+    fun GetMovieDetail(
+            movieId:String,
+            onDataReadyCallback: (MovieDetailResponse)->Unit
+    ) {
         val api = TmdbRetrofitManager.apiService
+        api.getMovieDetail(movieId).enqueue(object: Callback<MovieDetailResponse>{
 
+            override fun onResponse(call: Call<MovieDetailResponse>, response: Response<MovieDetailResponse>) {
+                Log.d("$TAG-GetMovieDetail","onResponse")
+                if(response.body() != null) {
+                    onDataReadyCallback(response.body() as MovieDetailResponse)
+                }
+            }
+
+            override fun onFailure(call: Call<MovieDetailResponse>, t: Throwable) {
+                Log.d("$TAG-GetMovieDetail","onFailure")
+            }
+
+        }) // end api.getMovieDetail().enqueue().
     } // end GetMovieDetail().
 } // end class TmdbRepository.

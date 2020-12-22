@@ -17,7 +17,7 @@ import retrofit2.http.Query
 interface ITmdbApiService {
 
     @GET("movie/{movieId}")     // {} 為路徑參數, @Path 會將參數帶入至該位置
-    fun fetchMovieDetail(@Path("movieId") movieId: String): Call<MovieDetailResponse>
+    fun getMovieDetail(@Path("movieId") movieId: String): Call<MovieDetailResponse>
 
     @GET("movie/now_playing")
     fun getNowPlaying(@Query("page") page:Int): Call<GetNowPlayingResponse>

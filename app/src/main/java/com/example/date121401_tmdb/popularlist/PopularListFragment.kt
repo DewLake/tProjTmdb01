@@ -80,29 +80,6 @@ class PopularListFragment : Fragment() {
             adapter.updateDataBy(newDataList.toList())
         } // end val onDataReadyCallback.
     } // end GetPopular().
-
-
-
-    /**
-     * 送出請求, 查詢 API
-     */
-    private fun GetMovieDetail():Unit {
-        val apiService = TmdbRetrofitManager.apiService
-        apiService.fetchMovieDetail("550").enqueue(object: Callback<MovieDetailResponse>{
-            override fun onResponse(
-                    call: Call<MovieDetailResponse>,
-                    response: Response<MovieDetailResponse>
-            ) {
-                Log.d("$TAG-fetchMovieDetail","onResponse")
-            }
-
-            override fun onFailure(call: Call<MovieDetailResponse>, t: Throwable) {
-                Log.d("$TAG-fetchMovieDetail","onFailure")
-            }
-
-        }) // end enqueue
-
-    } // end fetchMovieDetail().
     /////////////////////////////////////////////////////// api function end.
     ///////////////////////////////////////////////////////
 } // end PopularListFragment.
