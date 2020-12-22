@@ -1,7 +1,11 @@
 package com.example.date121401_tmdb.webapi.model.moviedetail
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class SpokenLanguage(
-    val english_name: String,
-    val iso_639_1: String,
-    val name: String
+    @field:Json(name = "english_name") val english_name: String,
+    @field:Json(name = "iso_639_1") val iso_639_1: String,
+    @field:Json(name = "name") val name: String
 )

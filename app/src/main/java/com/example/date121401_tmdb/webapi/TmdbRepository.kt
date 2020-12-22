@@ -2,8 +2,11 @@ package com.example.date121401_tmdb.webapi
 
 import android.util.Log
 import com.example.date121401_tmdb.webapi.model.moviedetail.MovieDetailResponse
+import com.example.date121401_tmdb.webapi.model.moviedetail.MovieDetailResponseJsonAdapter
 import com.example.date121401_tmdb.webapi.model.nowplaying.GetNowPlayingResponse
 import com.example.date121401_tmdb.webapi.model.popular.GetPopularResponse
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -90,14 +93,14 @@ object TmdbRepository {
         api.getMovieDetail(movieId).enqueue(object: Callback<MovieDetailResponse>{
 
             override fun onResponse(call: Call<MovieDetailResponse>, response: Response<MovieDetailResponse>) {
-                Log.d("$TAG-GetMovieDetail","onResponse")
+                Log.d("$TAG-GetMovieDetail","onResponse: $movieId")
                 if(response.body() != null) {
                     onDataReadyCallback(response.body() as MovieDetailResponse)
                 }
             }
 
             override fun onFailure(call: Call<MovieDetailResponse>, t: Throwable) {
-                Log.d("$TAG-GetMovieDetail","onFailure")
+                Log.d("$TAG-GetMovieDetail","onFailure: $movieId")
             }
 
         }) // end api.getMovieDetail().enqueue().

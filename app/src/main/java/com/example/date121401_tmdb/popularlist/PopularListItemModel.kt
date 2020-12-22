@@ -38,30 +38,49 @@ class PopularListModel() {
             // prepare target list.
             val populist = mutableListOf<PopularListItemModel>()
 
-            // get ids from response result
-            /* Response Schema:
-                data class GetPopularResponse(
-                    val page: Int,
-                    val results: List<Result>,
-                    val total_pages: Int,
-                    val total_results: Int
-                )
-             */
+//            // get ids from response result
+//            /* Response Schema:
+//                data class GetPopularResponse(
+//                    val page: Int,
+//                    val results: List<Result>,
+//                    val total_pages: Int,
+//                    val total_results: Int
+//                )
+//             */
+//
+//            // call back function for GetMovieDetail:
+//            // 轉換成 ItemModel, 並加入 populist
+//            val onMovieDetailReadyCallback: (MovieDetailResponse) -> Unit = {
+////                populist.add(PopularListItemModel.from(it))
+//                populist.add(PopularListItemModel(
+//                        662546,
+//                        "Godmothered",
+//                        "/2ltadt0HtHS8qD3xREVds3PDxkP.jpg",
+//                        "2020-12-04",
+//                        "113",
+//                        597
+//                ))
+//            }
+//
+//            for (item in response.results) {
+//                // 由每個 id 再發出請求, 取得 MovieDetail
+//                TmdbRepository.GetMovieDetail(
+//                        item.id.toString(),
+//                        onMovieDetailReadyCallback
+//                )
+//            } // end for - item in response.results
 
-            // call back function for GetMovieDetail:
-            // 轉換成 ItemModel, 並加入 populist
-            val onMovieDetailReadyCallback: (MovieDetailResponse) -> Unit = {
-                populist.add(PopularListItemModel.from(it))
+            for (i in 0..5) {
+                populist.add(PopularListItemModel(
+                        662546,
+                        "Godmothered",
+                        "/2ltadt0HtHS8qD3xREVds3PDxkP.jpg",
+                        "2020-12-04",
+                        "113",
+                        597
+                ))
             }
-
-            for (item in response.results) {
-                // 由每個 id 再發出請求, 取得 MovieDetail
-                TmdbRepository.GetMovieDetail(
-                        item.id.toString(),
-                        onMovieDetailReadyCallback
-                )
-            } // end for - item in response.results
-
+            print(populist)
             return populist         // !! 會有非同步問題嗎?
         } // end from().
 
