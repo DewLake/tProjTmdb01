@@ -76,4 +76,12 @@ object TmdbRepository {
 
         })
     } // end GetPopular().
+
+    /**
+     * Get Movie Detail
+     */
+    fun GetMovieDetail(onDataReadyCallback: ()) {
+        val api = TmdbRetrofitManager.apiService
+
+    } // end GetMovieDetail().
 } // end class TmdbRepository.

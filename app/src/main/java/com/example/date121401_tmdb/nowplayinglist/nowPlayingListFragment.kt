@@ -61,9 +61,9 @@ class nowPlayingListFragment : Fragment() {
              */
             val result = response.results       // !! 會有非同步的問題嗎?
 
-            val newDataList = mutableListOf<NowPlayingListModel>()
+            val newDataList = mutableListOf<NowPlayingListItemModel>()
             for (item in result) {
-                newDataList.add(NowPlayingListModel(item.id, item.backdrop_path))
+                newDataList.add(NowPlayingListItemModel(item.id, item.backdrop_path))
             }
 
             val adapter = this.rcvNowPlaying.adapter as nowPlayingListAdapter

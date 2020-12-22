@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.date121401_tmdb.R
 import com.example.date121401_tmdb.webapi.TmdbRetrofitManager
 import com.example.date121401_tmdb.webapi.model.moviedetail.MovieDetailResponse
+import com.example.date121401_tmdb.webapi.model.popular.GetPopularResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,7 +49,39 @@ class PopularListFragment : Fragment() {
 
     /////////////////////////////////////////////////////// end initialize.
     /////////////////////////////////////////////////////// api function
+    //
     private val fnDelegate: ()->Unit = { GetMovieDetail() }
+    //
+
+    /////////////////////////////////////////////////////// api function:
+    /**
+     * Get Popular
+     */
+    fun GetPopular(page:Int = 1) {
+        val onDataReadyCallback: (GetPopularResponse) -> Unit = {
+            /* Response Schema:
+                data class GetPopularResponse(
+                    val page: Int,
+                    val results: List<Result>,
+                    val total_pages: Int,
+                    val total_results: Int
+                )
+             */
+            val result = it.results             // !! 會有非同步的問題嗎?
+
+            val newDataList = mutableListOf<PopularListItemModel>()
+            for (item in result) {
+                // 用 id 再請求 Movie Detail
+
+                newDataList.add(PopularListItemModel())
+            }
+
+            val adapter = this.rcvPopularList.adapter as PopularListAdapter
+            adapter.updateDataBy(newDataList.toList())
+        } // end val onDataReadyCallback.
+    } // end GetPopular().
+
+
 
     /**
      * 送出請求, 查詢 API
