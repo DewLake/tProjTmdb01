@@ -49,7 +49,7 @@ class nowPlayingListAdapter(private var dataList: List<NowPlayingListItemModel>)
 
         fun onBind(data: NowPlayingListItemModel, position: Int) {
             mPosition = position
-            // txvSrc.text = data.imgSrc
+             txvSrc.text = data.id.toString()
 
             // Image:
             // val uri = ContextCompat.getDrawable(itemView.context, R.drawable.ic_launcher_background)

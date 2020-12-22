@@ -3,6 +3,7 @@ package com.example.date121401_tmdb.popularlist
 import com.example.date121401_tmdb.webapi.TmdbRepository
 import com.example.date121401_tmdb.webapi.model.moviedetail.MovieDetailResponse
 import com.example.date121401_tmdb.webapi.model.popular.GetPopularResponse
+import com.example.date121401_tmdb.webapi.model.popular.Result
 
 data class PopularListItemModel(
     val id: Int,
@@ -13,15 +14,29 @@ data class PopularListItemModel(
     val popularity: Int
 ){
     companion object {
+        /** MovieDetailResponse */
         fun from(movieDetail: MovieDetailResponse): PopularListItemModel {
             val md = movieDetail
             return PopularListItemModel(
-                md.id,
-                md.title,
-                md.backdrop_path,
-                md.release_date,
-                md.runtime.toString(),
-                md.popularity.toInt(),
+                    md.id,
+                    md.title,
+                    md.backdrop_path,
+                    md.release_date,
+                    md.runtime.toString(),
+                    (md.vote_average*10).toInt(),
+            )
+        }
+
+        /** MovieDetailResponse.Result */
+        fun from(result: Result): PopularListItemModel {
+            val sr = result
+            return PopularListItemModel(
+                    sr.id,
+                    sr.title,
+                    sr.backdrop_path,
+                    sr.release_date,
+                    "113",      // TODO(應由 movie detail 查詢)
+                    (sr.vote_average*10).toInt()
             )
         }
     } // end companion object.
@@ -34,7 +49,7 @@ class PopularListModel() {
         /**
          * Get Popular List from GetPopularResponse.
          */
-        fun from(response: GetPopularResponse): MutableList<PopularListItemModel>{
+        fun from(response: GetPopularResponse): List<PopularListItemModel>{
             // prepare target list.
             val populist = mutableListOf<PopularListItemModel>()
 
@@ -48,32 +63,13 @@ class PopularListModel() {
                 )
              */
 
-            // call back function for GetMovieDetail:
-            // 轉換成 ItemModel, 並加入 populist
-            val onMovieDetailReadyCallback: (MovieDetailResponse) -> Unit = {
-                populist.add(PopularListItemModel.from(it))
+            for (item in response.results) {
+                populist.add(
+                        PopularListItemModel.from(item)
+                )
             }
 
-            for (item in response.results) {
-                // 由每個 id 再發出請求, 取得 MovieDetail
-                TmdbRepository.GetMovieDetail(
-                        item.id.toString(),
-                        onMovieDetailReadyCallback
-                )
-            } // end for - item in response.results
-
-//            for (i in 0..5) {
-//                populist.add(PopularListItemModel(
-//                        662546,
-//                        "Godmothered",
-//                        "/2ltadt0HtHS8qD3xREVds3PDxkP.jpg",
-//                        "2020-12-04",
-//                        "113",
-//                        597
-//                ))
-//            }
-            print(populist)
-            return populist         // !! 會有非同步問題嗎?
+            return populist.toList()
         } // end from().
 
     } // companion object.

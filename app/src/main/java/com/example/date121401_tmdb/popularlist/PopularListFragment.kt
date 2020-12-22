@@ -62,14 +62,16 @@ class PopularListFragment : Fragment() {
     /////////////////////////////////////////////////////// api function:
     /**
      * Get Popular
+     * 查詢 Popular 並顯示清單.
      */
     fun GetPopular(page:Int = 1) {
+        // callback: 查詢結果顯示出來
         val onDataReadyCallback: (GetPopularResponse) -> Unit = {
             val newDataList = PopularListModel.from(it)
 
-//            // !! 非同步?
-//            val adapter = this.rcvPopularList.adapter as PopularListAdapter
-//            adapter.updateDataBy(newDataList.toList())
+            // TODO(這是錯誤的寫法, 應考慮非同步的問題: newDataList 可能查詢結果還沒準備好)
+            val adapter = this.rcvPopularList.adapter as PopularListAdapter
+            adapter.updateDataBy(newDataList.toList())
         } // end val onDataReadyCallback.
 
         // 送出請求
