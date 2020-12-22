@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.date121401_tmdb.R
+import com.example.date121401_tmdb.webapi.TmdbRepository
 import com.example.date121401_tmdb.webapi.TmdbRetrofitManager
 import com.example.date121401_tmdb.webapi.model.moviedetail.MovieDetailResponse
 import com.example.date121401_tmdb.webapi.model.popular.GetPopularResponse
@@ -62,13 +63,15 @@ class PopularListFragment : Fragment() {
     /**
      * Get Popular
      */
-    fun GetPopular(page:Int = 1): List<PopularListItemModel> {
+    fun GetPopular(page:Int = 1) {
         val onDataReadyCallback: (GetPopularResponse) -> Unit = {
             val newDataList = PopularListModel.from(it)
 
             val adapter = this.rcvPopularList.adapter as PopularListAdapter
             adapter.updateDataBy(newDataList.toList())
         } // end val onDataReadyCallback.
+
+        TmdbRepository.GetPopular(page, onDataReadyCallback)
     } // end GetPopular().
 
 

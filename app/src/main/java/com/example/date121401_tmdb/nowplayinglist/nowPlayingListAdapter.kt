@@ -59,20 +59,9 @@ class nowPlayingListAdapter(private var dataList: List<NowPlayingListItemModel>)
 
         private fun loadImage(data: NowPlayingListItemModel) {
             val uri = TmdbRepository.GetImageUrl(data.imgSrc)
-            val requestListener = object : RequestListener<Drawable>{
-                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                    TODO("Not yet implemented")
-                }
-
-            }
-
             Glide.with(itemView)
                     .load(uri)
-                    .listener(requestListener)
+                    .error(R.drawable.ic_launcher_background)
                     .into(imvImage)
         } // end loadImage().
     } // end class ItemViewHolder.

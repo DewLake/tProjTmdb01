@@ -65,13 +65,20 @@ class PopularListAdapter(
         fun onBind(data: PopularListItemModel, position: Int) {
             midxAdapter = position
 
-            val uri = TmdbRepository.GetImageUrl(data.imgSrc)
-            Glide.with(itemView).load(uri).into(imvImage)
+            loadImage(data)
             txvTitle.text = data.title
             txvDateMin.text = data.dateMin
             txvRunTime.text = data.runTime
             txvRate.text = data.popularity.toString()
         }
+
+        private fun loadImage(data: PopularListItemModel) {
+            val uri = TmdbRepository.GetImageUrl(data.imgSrc)
+            Glide.with(itemView)
+                    .load(uri)
+                    .error(R.drawable.ic_launcher_background)
+                    .into(imvImage)
+        } // end loadImage().
 
         ////////// Click Event Handler
         private var clickListener = View.OnClickListener{
