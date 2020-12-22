@@ -67,11 +67,12 @@ class PopularListFragment : Fragment() {
         val onDataReadyCallback: (GetPopularResponse) -> Unit = {
             val newDataList = PopularListModel.from(it)
 
-            // !! 非同步?
-            val adapter = this.rcvPopularList.adapter as PopularListAdapter
-            adapter.updateDataBy(newDataList.toList())
+//            // !! 非同步?
+//            val adapter = this.rcvPopularList.adapter as PopularListAdapter
+//            adapter.updateDataBy(newDataList.toList())
         } // end val onDataReadyCallback.
 
+        // 送出請求
         TmdbRepository.GetPopular(page, onDataReadyCallback)
     } // end GetPopular().
 
