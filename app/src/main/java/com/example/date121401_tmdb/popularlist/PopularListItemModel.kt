@@ -1,5 +1,9 @@
 package com.example.date121401_tmdb.popularlist
 
+import com.example.date121401_tmdb.webapi.TmdbRepository
+import com.example.date121401_tmdb.webapi.model.moviedetail.MovieDetailResponse
+import com.example.date121401_tmdb.webapi.model.popular.GetPopularResponse
+
 data class PopularListItemModel(
     val id: Int,
     val title: String,
@@ -7,7 +11,63 @@ data class PopularListItemModel(
     val dateMin: String,
     val runTime: String,
     val popularity: Int
-)
+){
+    companion object {
+        fun from(movieDetail: MovieDetailResponse): PopularListItemModel {
+            val md = movieDetail
+            return PopularListItemModel(
+                md.id,
+                md.title,
+                md.backdrop_path,
+                md.release_date,
+                md.runtime.toString(),
+                md.popularity.toInt(),
+            )
+        }
+    } // end companion object.
+} // end data class PopularListItemModel.
+
+
+class PopularListModel() {
+
+    companion object {
+        /**
+         * Get Popular List from GetPopularResponse.
+         */
+        fun from(response: GetPopularResponse): MutableList<PopularListItemModel>{
+            // prepare target list.
+            val populist = mutableListOf<PopularListItemModel>()
+
+            // get ids from response result
+            /* Response Schema:
+                data class GetPopularResponse(
+                    val page: Int,
+                    val results: List<Result>,
+                    val total_pages: Int,
+                    val total_results: Int
+                )
+             */
+
+            // call back function for GetMovieDetail:
+            // 轉換成 ItemModel, 並加入 populist
+            val onMovieDetailReadyCallback: (MovieDetailResponse) -> Unit = {
+                populist.add(PopularListItemModel.from(it))
+            }
+
+            for (item in response.results) {
+                // 由每個 id 再發出請求, 取得 MovieDetail
+                TmdbRepository.GetMovieDetail(
+                        item.id.toString(),
+                        onMovieDetailReadyCallback
+                )
+            } // end for - item in response.results
+
+            return populist         // !! 會有非同步問題嗎?
+        } // end from().
+
+    } // companion object.
+
+} // end class PopularListModel().
 
 
 val PuplarListDataSource1: List<PopularListItemModel> = listOf(
