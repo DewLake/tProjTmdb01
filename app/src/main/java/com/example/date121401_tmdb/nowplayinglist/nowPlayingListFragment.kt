@@ -49,7 +49,8 @@ class nowPlayingListFragment : Fragment() {
      * Get Now Playing
      */
     fun GetNowPlaying(page:Int = 1) {
-        val onDataReadyCallback: (GetNowPlayingResponse) -> Unit = { response ->
+        // TmdbRepository.GetNowPlaying(page, onDataReadyCallback)
+        TmdbRepository.GetNowPlaying(page) { response ->
             /* Response Schema:
             {
                 dates: Dates,
@@ -61,16 +62,16 @@ class nowPlayingListFragment : Fragment() {
              */
             val result = response.results       // !! 會有非同步的問題嗎?
 
+            // 轉換成顯示用的資料格式
             val newDataList = mutableListOf<NowPlayingListItemModel>()
             for (item in result) {
                 newDataList.add(NowPlayingListItemModel(item.id, item.backdrop_path))
             }
 
+            // 更新資料顯示出來
             val adapter = this.rcvNowPlaying.adapter as nowPlayingListAdapter
             adapter.updateDataBy(newDataList.toList())
         } // end val onDataReadyCallback.
-
-        TmdbRepository.GetNowPlaying(page, onDataReadyCallback)
     } // end GetNowPlaying().
     /////////////////////////////////////////////////////// api function end.
 
