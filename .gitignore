@@ -16,3 +16,7 @@ local.properties
 
 # for api key security
 gradle.properties
+
+# ori photo
+/docms/001.png
+/docms/002.png
